@@ -1,0 +1,27 @@
+{
+  "name": "schedule",
+  "version": "0.1.0",
+  "description": "Timetable for LSTU",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@guthub.com:PlumpAlbert/lstu"
+  },
+  "keywords": [
+    "lstu",
+    "express",
+    "kirya",
+    "plump",
+    "nodejs"
+  ],
+  "author": "plump_albert",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-jwt": "^6.0.0",
+    "pg": "^8.3.3"
+  }
+}
