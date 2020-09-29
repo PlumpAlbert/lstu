@@ -1,13 +1,16 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const subjectRouter = require("./api/subject");
 
-dotenv.config({path: ".env.local"});
+const configPath =
+  process.env.NODE_ENV === "development" ? ".env.local" : ".env";
+dotenv.config({path: configPath});
 
 const app = express();
 
-app.route("/api");
+app.use("/api/subject", subjectRouter);
 
-app.listen(process.env["PORT"], process.env["HOST"], () => {
+app.listen(process.env["PORT"], process.env["HOST"] || "localhost", () => {
   console.log(
     `Example app listening at http://${process.env["HOST"]}:${process.env["PORT"]}`
   );
