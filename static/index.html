@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Расписание ЛГТУ</title>
+    <script src="assets/js/jquery-3.5.1.min.js"></script>
+    <script src="assets/js/material.js"></script>
+    <link href="assets/css/material.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./assets/css/main.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="app-header__menu-container flex-row">
+        <span class="material-icons app-header__menu">menu</span>
+        <h1 class="app-header__group-name">ПИ-17</h1>
+        <span class="material-icons today">today</span>
+      </div>
+      <div class="app-header__week-container flex-row">
+        <span class="week-type current-week">Белая неделя</span>
+        <span class="material-icons week-switch">swap_vert</span>
+      </div>
+      <div class="app-header__days-wrapper flex-row">
+        <span class="day today">Понедельник</span>
+        <span class="day">Вторник</span>
+        <span class="day">Среда</span>
+        <span class="day">Четверг</span>
+        <span class="day">Пятница</span>
+        <span class="day">Суббота</span>
+      </div>
+    </header>
+    <main class="app-body flex-col">
+      <div class="subject lecture flex-row">
+        <div class="flex-col">
+          <div class="subject-header">
+            <span class="subject-header__time">08:00 - 09:30</span>
+            <span class="subject-header__class">Лекция в 9-401</span>
+          </div>
+          <div class="subject-title">
+            Методика обучения пользователей программных систем
+          </div>
+          <div class="subject-teacher">
+            Кургасов В. В.
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

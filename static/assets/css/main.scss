@@ -1,0 +1,182 @@
+@import "./fonts.css";
+@import "./material.css";
+
+$dark: hsl(0, 0%, 10%);
+$dark-grey: hsla(0, 0%, 10%, 0.67);
+$light-grey: hsla(0, 0%, 10%, 0.3);
+$light: hsl(0, 0%, 100%);
+:root {
+  --dark: #{$dark};
+  --dark-grey: #{$dark-grey};
+  --light-grey: #{$light-grey};
+  --light: #{$light};
+
+  --green: hsl(162, 63%, 41%);
+  --blue: hsl(205, 67%, 45%);
+  --purple: hsl(262, 48%, 46%);
+  --yellow: hsl(42, 78%, 60%);
+}
+
+html,
+body {
+  font-size: 16px;
+  font-family: "Google Sans", "Lato", sans-serif;
+  padding: 0px;
+  margin: 0px;
+  overflow: auto;
+  height: 100%;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  background-color: hsl(0, 0%, 94%);
+}
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  &.wrap {
+    flex-wrap: wrap;
+  }
+}
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  &.wrap {
+    flex-wrap: wrap;
+  }
+}
+.material-icons {
+  cursor: pointer;
+  user-select: none;
+}
+
+.app-header {
+  width: 100%;
+  & &__menu-container {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 1.5rem 2rem;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--dark-grey);
+    .material-icons {
+      font-size: 2rem;
+    }
+    .app-header__group-name {
+      font-weight: 400;
+      font-size: 1.5rem;
+      margin: 0;
+    }
+  }
+  & &__week-container {
+    padding: 2rem 2rem 0.5rem;
+    justify-content: space-between;
+    align-items: top;
+    .week-type {
+      font-weight: 500;
+      font-size: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      margin-right: 2rem;
+      &.current-week::after {
+        content: "Текущая неделя";
+        margin-top: 0.5rem;
+        font-size: 0.8rem;
+        color: var(--dark-grey);
+      }
+    }
+    .material-icons {
+      font-size: 2rem;
+      color: var(--dark-grey);
+    }
+  }
+  & &__days-wrapper {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 1.5rem 0;
+    ::-webkit-scrollbar {
+      width: 0px;
+      background: transparent;
+    }
+    .day {
+      user-select: none;
+      cursor: pointer;
+      font-size: 1rem;
+      margin: 0 1rem;
+      color: var(--light-grey);
+      &:first-child {
+        margin-left: 2rem;
+      }
+      &:last-child::after {
+        content: "";
+        margin-right: 2rem;
+      }
+      &.today {
+        font-weight: 500;
+        color: var(--dark);
+      }
+    }
+  }
+}
+
+.app-body {
+  background-color: var(--light);
+  border-radius: 0.5rem 0.5rem 0 0;
+  flex: 1;
+  padding: 1.5rem 0;
+  .subject {
+    &::before {
+      content: "";
+      width: 6px;
+      border-radius: 0 8px 8px 0;
+    }
+    &.lecture::before {
+      background-color: var(--blue);
+    }
+    &.practice::before {
+      background-color: var(--yellow);
+    }
+    &.lab::before {
+      background-color: var(--purple);
+    }
+    .flex-col {
+      padding: 0.5rem 2rem;
+    }
+    & .subject-header,
+    & .subject-teacher {
+      font-size: 0.8rem;
+      color: var(--dark-grey);
+    }
+    & .subject-title {
+      margin: 0.5rem 0;
+      word-wrap: wrap;
+      line-height: 1.5;
+    }
+  }
+}
+
+body.green {
+  background: var(--green);
+  .app-header {
+    .material-icons {
+      color: var(--light) !important;
+    }
+    color: var(--light);
+    &__menu-container {
+      .app-header__group-name {
+        color: var(--light);
+      }
+    }
+    &__week-container .week-type.current-week::after {
+      color: rgba($light, 0.67);
+    }
+    &__days-wrapper {
+      .day {
+        color: rgba($light, 0.67);
+        &.today {
+          color: var(--light);
+        }
+      }
+    }
+  }
+}
