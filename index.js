@@ -11,6 +11,7 @@ const app = express();
 
 app.use("/api/subject", subjectRouter);
 app.use("/api/user", userRouter);
+app.use(express.static('./static'))
 
 app.listen(process.env["PORT"], process.env["HOST"] || "localhost", () => {
   console.log(
