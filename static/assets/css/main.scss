@@ -153,6 +153,12 @@ body {
       word-wrap: wrap;
       line-height: 1.5;
     }
+    .subject-header {
+      display: flex;
+      &__class {
+        margin-left: auto;
+      }
+    }
   }
 }
 
