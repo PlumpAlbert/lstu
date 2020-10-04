@@ -7,7 +7,7 @@ class Subject {
     this.title = row.subject_title;
     this.class = row.subject_class;
     this.type = row.subject_type;
-    this.time = row.subject_time;
+    this.time = new Date("0000-01-01T" + row.subject_time + ".000+02:30");
     this.teacher = row.subject_teacher;
     this.weekDay = row.subject_weekday;
     this.weekType = row.subject_weektype;
