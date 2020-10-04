@@ -5,6 +5,25 @@ const {query} = require("../../database");
 
 const subjectRouter = express.Router();
 
+function wrapPerWeeks(subjects) {
+  /** @type {Object.<string, Subject[]>} */
+  const week = {};
+  for (let i = 0; i < subjects.length; i++) {
+    const s = subjects[i];
+    if (!week[s.weekDay]) {
+      week[s.weekDay] = [];
+    }
+    week[s.weekDay].push(s);
+  }
+  Object.keys(week).map(key => {
+    if (!week.hasOwnProperty(key)) return;
+    week[key] = week[key].sort(function (a, b) {
+      return a.time - b.time;
+    });
+  });
+  return week;
+}
+
 function errorHandler(res) {
   return function (err) {
     console.error("[!] ERROR: %O", err);
@@ -34,7 +53,8 @@ function getAllSubject(res) {
   query(queryString, undefined)
     .then(body => {
       const subjects = body.rows.map(row => new Subject(row));
-      res.status(200).json(subjects[0]);
+      const week = wrapPerWeeks(subjects);
+      res.status(200).json(week);
     })
     .catch(errorHandler(res));
 }
@@ -47,16 +67,17 @@ function getSubjectsByGroupId(groupId, res) {
   query(queryString, params)
     .then(body => {
       const subjects = body.rows.map(row => new Subject(row));
-      res.status(200).json(subjects);
+      const week = wrapPerWeeks(subjects);
+      res.status(200).json(week);
     })
     .catch(errorHandler(res));
 }
 
 subjectRouter.get("/", function (req, res) {
-  const {id, groupId} = req.params;
+  const {id, groupId} = req.query;
   if (id) getSubjectById(id, res);
   else if (groupId) getSubjectsByGroupId(groupId, res);
-  else getAllSubject(res);
+  //else getAllSubject(res);
 });
 
 module.exports = subjectRouter;
