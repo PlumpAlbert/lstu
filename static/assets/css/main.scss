@@ -94,7 +94,8 @@ body {
     flex-wrap: nowrap;
     overflow-x: auto;
     padding: 1.5rem 0;
-    ::-webkit-scrollbar {
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
       width: 0px;
       background: transparent;
     }
