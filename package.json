@@ -4,7 +4,9 @@
   "description": "Timetable for LSTU",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=development node index.js"
+    "prestart": "npm run sass",
+    "start": "NODE_ENV=development node index.js",
+    "sass": "fd -e scss . static | entr -s 'sassc -t compact $0 ${0%.scss}.css' &"
   },
   "repository": {
     "type": "git",
