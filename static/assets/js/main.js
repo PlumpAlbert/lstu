@@ -8,13 +8,20 @@ const subjectTemplate = `<div class="subject flex-row">
           <div class="subject-teacher">#teacher</div>
         </div>
       </div>`;
+const emptyBody = `<p class='empty-message'>
+  <img src='/assets/face.svg' alt="hueta" class='empty-message__icon'/>
+  <span class='empty-message__text'>Сегодня нет пар</span>
+</p>`;
 
 function displaySchedule() {
   $(".app-body.flex-col").empty();
   const schedule = JSON.parse(sessionStorage.getItem("schedule"));
   const weekDay = window.location.hash.slice(1).toLowerCase();
   let dayIndex = dayNameToDayIndex(weekDay);
-  if (!schedule[dayIndex]) return;
+  if (!schedule[dayIndex]) {
+    $(".app-body.flex-col").append(emptyBody);
+    return;
+  }
   schedule[dayIndex].map(subject => {
     const time = new Date(Date.parse(subject.time));
     const endTime = new Date(Number(time) + 1.5 * 60 * 60 * 1000);

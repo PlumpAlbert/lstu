@@ -125,6 +125,20 @@ body {
   border-radius: 0.5rem 0.5rem 0 0;
   flex: 1;
   padding: 1rem 0;
+  .empty-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    &__icon {
+      max-width: 100px;
+      object-fit: contain;
+    }
+    &__text {
+      margin-top: 1rem;
+    }
+  }
+
   .subject {
     width: 100%;
     margin: 0.5rem 0;
