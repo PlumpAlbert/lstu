@@ -139,7 +139,7 @@ $(document).ready(function () {
   if (dayIndex === 0) {
     const today = new Date();
     dayIndex = today.getDay();
-    window.location.assign("#" + dayIndexToDayName(dayIndex));
+    window.location.replace("#" + dayIndexToDayName(dayIndex));
   }
   const days = $(".app-header__days-wrapper .day");
   days[dayIndex > 0 ? dayIndex - 1 : 0].classList.add("today");
@@ -152,7 +152,7 @@ $(document).ready(function () {
         oldElem.classList.remove("today");
       }
     }
-    window.location.assign("#" + dataset["day"]);
+    window.location.replace("#" + dataset["day"]);
   });
 
   $.ajax({
