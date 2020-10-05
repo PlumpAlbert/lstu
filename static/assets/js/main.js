@@ -132,6 +132,13 @@ $(document).ready(function () {
   days[dayIndex > -1 ? dayIndex : 0].className += " today";
   days.click(function ({target}) {
     const {dataset} = target;
+    if (!target.className.includes("today")) {
+      target.classList.add("today");
+      const oldElem = $(`.day[data-day="${window.location.hash.slice(1)}"]`)[0];
+      if (oldElem) {
+        oldElem.classList.remove("today");
+      }
+    }
     window.location.assign("#" + dataset["day"]);
   });
 
