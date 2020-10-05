@@ -95,6 +95,36 @@ function dayNameToDayIndex(name) {
       return 0;
   }
 }
+
+/**
+ * Function that translates day index into day name
+ * @param {number} dayIndex
+ * @returns {string} Name of the day
+ */
+function dayIndexToDayName(dayIndex) {
+  switch (dayIndex) {
+    case 1: {
+      return "monday";
+    }
+    case 2: {
+      return "tuesday";
+    }
+    case 3: {
+      return "wednesday";
+    }
+    case 4: {
+      return "thursday";
+    }
+    case 5: {
+      return "friday";
+    }
+    case 6: {
+      return "saturday";
+    }
+    default:
+      return 0;
+  }
+}
 $(document).ready(function () {
   const today = new Date();
   const dayIndex = today.getDay() - 1;
