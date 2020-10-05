@@ -13,31 +13,7 @@ function displaySchedule() {
   $(".app-body.flex-col").empty();
   const schedule = JSON.parse(sessionStorage.getItem("schedule"));
   const weekDay = window.location.hash.slice(1).toLowerCase();
-  let dayIndex = "1";
-  if (weekDay) {
-    switch (weekDay) {
-      case "tuesday": {
-        dayIndex = "2";
-        break;
-      }
-      case "wednesday": {
-        dayIndex = "3";
-        break;
-      }
-      case "thursday": {
-        dayIndex = "4";
-        break;
-      }
-      case "friday": {
-        dayIndex = "5";
-        break;
-      }
-      case "saturday": {
-        dayIndex = "6";
-        break;
-      }
-    }
-  }
+  let dayIndex = dayNameToDayIndex(weekDay);
   if (!schedule[dayIndex]) return;
   schedule[dayIndex].map(subject => {
     const time = new Date(Date.parse(subject.time));
@@ -90,6 +66,35 @@ function displaySchedule() {
   });
 }
 
+/**
+ * Function that translates day name to a day index
+ * @param {string} name
+ * @returns {number} Index of the day
+ */
+function dayNameToDayIndex(name) {
+  switch (name) {
+    case "monday": {
+      return 1;
+    }
+    case "tuesday": {
+      return 2;
+    }
+    case "wednesday": {
+      return 3;
+    }
+    case "thursday": {
+      return 4;
+    }
+    case "friday": {
+      return 5;
+    }
+    case "saturday": {
+      return 6;
+    }
+    default:
+      return 0;
+  }
+}
 $(document).ready(function () {
   const today = new Date();
   const dayIndex = today.getDay() - 1;
