@@ -124,8 +124,10 @@ body {
   background-color: var(--light);
   border-radius: 0.5rem 0.5rem 0 0;
   flex: 1;
-  padding: 1.5rem 0;
+  padding: 1rem 0;
   .subject {
+    width: 100%;
+    margin: 0.5rem 0;
     &::before {
       content: "";
       width: 6px;
@@ -141,6 +143,7 @@ body {
       background-color: var(--purple);
     }
     .flex-col {
+      width: 100%;
       padding: 0.5rem 2rem;
     }
     & .subject-header,
