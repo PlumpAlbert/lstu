@@ -125,11 +125,17 @@ function dayIndexToDayName(dayIndex) {
       return 0;
   }
 }
+
 $(document).ready(function () {
-  const today = new Date();
-  const dayIndex = today.getDay() - 1;
+  const locationHash = window.location.hash.slice(1).toLowerCase();
+  let dayIndex = dayNameToDayIndex(locationHash);
+  if (dayIndex === 0) {
+    const today = new Date();
+    dayIndex = today.getDay();
+    window.location.assign("#" + dayIndexToDayName(dayIndex));
+  }
   const days = $(".app-header__days-wrapper .day");
-  days[dayIndex > -1 ? dayIndex : 0].className += " today";
+  days[dayIndex > 0 ? dayIndex - 1 : 0].classList.add("today");
   days.click(function ({target}) {
     const {dataset} = target;
     if (!target.className.includes("today")) {
