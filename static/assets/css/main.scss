@@ -16,7 +16,9 @@ $light: hsl(0, 0%, 100%);
   --purple: hsl(262, 48%, 46%);
   --yellow: hsl(42, 78%, 60%);
 }
-
+* {
+  box-sizing: border-box;
+}
 html,
 body {
   font-size: 16px;
@@ -52,6 +54,8 @@ body {
 }
 
 .app-header {
+  max-width: 650px;
+  margin: 0 auto;
   width: 100%;
   & &__menu-container {
     box-sizing: border-box;
@@ -126,55 +130,62 @@ body {
   border-radius: 0.5rem 0.5rem 0 0;
   flex: 1;
   padding: 1rem 0;
-  .empty-message {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: auto;
-    &__icon {
-      max-width: 100px;
-      object-fit: contain;
-    }
-    &__text {
-      margin-top: 1rem;
-    }
-  }
 
-  .subject {
+  .subjects-wrapper {
+    margin: 0 auto;
+    max-width: calc(650px - 4rem);
     width: 100%;
-    margin: 0.5rem 0;
-    &::before {
-      content: "";
-      width: 6px;
-      border-radius: 0 8px 8px 0;
-    }
-    &.lecture::before {
-      background-color: var(--blue);
-    }
-    &.practice::before {
-      background-color: var(--yellow);
-    }
-    &.lab::before {
-      background-color: var(--purple);
-    }
-    .flex-col {
-      width: 100%;
-      padding: 0.5rem 2rem;
-    }
-    & .subject-header,
-    & .subject-teacher {
-      font-size: 0.8rem;
-      color: var(--dark-grey);
-    }
-    & .subject-title {
-      margin: 0.5rem 0;
-      word-wrap: wrap;
-      line-height: 1.5;
-    }
-    .subject-header {
+    height: 100%;
+
+    .empty-message {
       display: flex;
-      &__class {
-        margin-left: auto;
+      flex-direction: column;
+      align-items: center;
+      margin: auto;
+      &__icon {
+        max-width: 100px;
+        object-fit: contain;
+      }
+      &__text {
+        margin-top: 1rem;
+      }
+    }
+    .subject {
+      width: 100%;
+      margin: 0.5rem 0;
+      &::before {
+        content: "";
+        width: 6px;
+        border-radius: 0 8px 8px 0;
+      }
+      &.lecture::before {
+        background-color: var(--blue);
+      }
+      &.practice::before {
+        background-color: var(--yellow);
+      }
+      &.lab::before {
+        background-color: var(--purple);
+      }
+      .flex-col {
+        width: 100%;
+        padding: 0.5rem 2rem;
+      }
+      & .subject-header,
+      & .subject-teacher {
+        font-size: 0.8rem;
+        color: var(--dark-grey);
+      }
+      & .subject-title {
+        margin: 0.5rem 0;
+        word-wrap: wrap;
+        line-height: 1.5;
+      }
+      .subject-header {
+        display: flex;
+        &__class {
+          margin-left: auto;
+        }
       }
     }
   }

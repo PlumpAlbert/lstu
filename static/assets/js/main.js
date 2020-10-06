@@ -25,13 +25,14 @@ const emptyBody = `<p class='empty-message'>
 </p>`;
 
 function displaySchedule() {
-  $(".app-body.flex-col").empty();
+  const wrapper = $("#subjects-wrapper");
+  wrapper.empty();
   const schedule = JSON.parse(sessionStorage.getItem("schedule"));
   const weekType = sessionStorage.getItem("weekType");
   const weekDay = window.location.hash.slice(1).toLowerCase();
   let dayIndex = dayNameToDayIndex(weekDay);
   if (!schedule[dayIndex]) {
-    $(".app-body.flex-col").append(emptyBody);
+    wrapper.append(emptyBody);
     return;
   }
   schedule[dayIndex].map(subject => {
@@ -80,8 +81,8 @@ function displaySchedule() {
       .replace("#title", subject.title)
       .replace("#teacher", subject.teacher);
 
-    $(".app-body.flex-col").append(html);
-    let elements = $(".app-body.flex-col .subject");
+    wrapper.append(html);
+    let elements = wrapper.children(".subject");
     elements[elements.length - 1].className += " " + className;
   });
 }
