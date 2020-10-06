@@ -1,3 +1,14 @@
+const oneWeek = 1000 * 60 * 60 * 24 * 7;
+const today = new Date();
+if (today.getMonth() > 8) {
+  const firstClassWeek = new Date(today.getFullYear(), 8, 1);
+  const weekType = Math.floor((today - firstClassWeek) / oneWeek) % 2 === 1;
+  sessionStorage.setItem("weekType", weekType ? "1" : "0");
+} else {
+  const firstClassWeek = new Date(today.getFullYear() - 1, 8, 1);
+  const weekType = ((today - firstClassWeek) / oneWeek) % 2 === 1;
+  sessionStorage.setItem("weekType", weekType ? "1" : "0");
+}
 const subjectTemplate = `<div class="subject flex-row">
         <div class="flex-col">
           <div class="subject-header">
@@ -16,6 +27,7 @@ const emptyBody = `<p class='empty-message'>
 function displaySchedule() {
   $(".app-body.flex-col").empty();
   const schedule = JSON.parse(sessionStorage.getItem("schedule"));
+  const weekType = sessionStorage.getItem("weekType");
   const weekDay = window.location.hash.slice(1).toLowerCase();
   let dayIndex = dayNameToDayIndex(weekDay);
   if (!schedule[dayIndex]) {
@@ -23,6 +35,7 @@ function displaySchedule() {
     return;
   }
   schedule[dayIndex].map(subject => {
+    if (weekType !== subject.weekType) return;
     const time = new Date(Date.parse(subject.time));
     const endTime = new Date(Number(time) + 1.5 * 60 * 60 * 1000);
     let type = undefined,
@@ -137,10 +150,10 @@ $(document).ready(function () {
   const locationHash = window.location.hash.slice(1).toLowerCase();
   let dayIndex = dayNameToDayIndex(locationHash);
   if (dayIndex === 0) {
-    const today = new Date();
     dayIndex = today.getDay();
     window.location.replace("#" + dayIndexToDayName(dayIndex));
   }
+
   const days = $(".app-header__days-wrapper .day");
   days[dayIndex > 0 ? dayIndex - 1 : 0].classList.add("today");
   days.click(function ({target}) {
