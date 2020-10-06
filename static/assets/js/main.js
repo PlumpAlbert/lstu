@@ -169,6 +169,13 @@ $(document).ready(function () {
     window.location.replace("#" + dataset["day"]);
   });
 
+  $(".material-icons.week-switch").click(function () {
+    const weekType = sessionStorage.getItem("weekType");
+    sessionStorage.setItem("weekType", weekType === "1" ? "0" : "1");
+    displaySchedule();
+  });
+
+  if (sessionStorage.getItem("schedule")) return displaySchedule();
   $.ajax({
     url: "/api/subject?groupId=1",
     method: "GET"
