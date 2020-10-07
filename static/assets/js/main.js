@@ -1,13 +1,16 @@
 const oneWeek = 1000 * 60 * 60 * 24 * 7;
 const today = new Date();
+let currentWeek;
 if (today.getMonth() > 8) {
   const firstClassWeek = new Date(today.getFullYear(), 8, 1);
   const weekType = Math.floor((today - firstClassWeek) / oneWeek) % 2 === 1;
   sessionStorage.setItem("weekType", weekType ? "1" : "0");
+  currentWeek = weekType ? '1' : '0';
 } else {
   const firstClassWeek = new Date(today.getFullYear() - 1, 8, 1);
   const weekType = ((today - firstClassWeek) / oneWeek) % 2 === 1;
   sessionStorage.setItem("weekType", weekType ? "1" : "0");
+  currentWeek = weekType ? '1' : '0';
 }
 const subjectTemplate = `<div class="subject flex-row">
         <div class="flex-col">
@@ -85,6 +88,24 @@ function displaySchedule() {
     let elements = wrapper.children(".subject");
     elements[elements.length - 1].className += " " + className;
   });
+}
+
+function updateWeekType() {
+  const weekType = sessionStorage.getItem('weekType');
+  const weekTitle = $(".app-header__week-container .week-type");
+  if (weekType === '1') {
+    document.body.classList.add("green");
+    weekTitle.html('Зеленая неделя');
+    if (currentWeek === '1') weekTitle.addClass("current-week");
+    else weekTitle.removeClass('current-week');
+  }
+  else {
+    document.body.classList.remove("green");
+    weekTitle.html('Белая неделя');
+    if (currentWeek === '0') weekTitle.addClass("current-week");
+    else weekTitle.removeClass('current-week');
+  }
+  displaySchedule();
 }
 
 /**
@@ -169,13 +190,17 @@ $(document).ready(function () {
     window.location.replace("#" + dataset["day"]);
   });
 
-  $(".material-icons.week-switch").click(function () {
-    const weekType = sessionStorage.getItem("weekType");
-    sessionStorage.setItem("weekType", weekType === "1" ? "0" : "1");
-    displaySchedule();
+  $(".material-icons.week-switch").click(function() {
+    const weekType = sessionStorage.getItem('weekType') === "1" ? "0" : "1";
+    sessionStorage.setItem("weekType", weekType);
+    updateWeekType();
   });
 
-  if (sessionStorage.getItem("schedule")) return displaySchedule();
+  if (sessionStorage.getItem("schedule")) {
+    updateWeekType();
+    displaySchedule();
+    return;
+  }
   $.ajax({
     url: "/api/subject?groupId=1",
     method: "GET"
