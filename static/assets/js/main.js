@@ -1,6 +1,7 @@
 const oneWeek = 1000 * 60 * 60 * 24 * 7;
 const today = new Date();
 let currentWeek;
+const queryParams = new URLSearchParams(window.location.search);
 if (today.getMonth() > 8) {
   const firstClassWeek = new Date(today.getFullYear(), 8, 1);
   const weekType = Math.floor((today - firstClassWeek) / oneWeek) % 2 === 1;
@@ -30,11 +31,12 @@ const emptyBody = `<p class='empty-message'>
 function displaySchedule() {
   const wrapper = $("#subjects-wrapper");
   wrapper.empty();
-  const schedule = JSON.parse(sessionStorage.getItem("schedule"));
+  const groupId = queryParams.get('group') ? queryParams.get('group') : '1';
+  const schedule = JSON.parse(sessionStorage.getItem(`schedule-${groupId}`));
   const weekType = sessionStorage.getItem("weekType");
   const weekDay = window.location.hash.slice(1).toLowerCase();
   let dayIndex = dayNameToDayIndex(weekDay);
-  if (!schedule[dayIndex]) {
+  if (!schedule || !schedule[dayIndex]) {
     wrapper.append(emptyBody);
     return;
   }
@@ -169,11 +171,23 @@ function dayIndexToDayName(dayIndex) {
 
 $(document).ready(function () {
   const locationHash = window.location.hash.slice(1).toLowerCase();
+  const groupId = queryParams.get('group') ?  queryParams.get('group') : '1';
   let dayIndex = dayNameToDayIndex(locationHash);
   if (dayIndex === 0) {
     dayIndex = today.getDay();
     window.location.replace("#" + dayIndexToDayName(dayIndex));
   }
+
+  const groupName = $('.app-header__menu-container .app-header__group-name');
+
+  if (groupId !== '1')
+    groupName.html('М-АС-20');
+  groupName.click(function(e) {
+    const {innerHTML} = e.target;
+    if (innerHTML === 'ПИ-17') {
+      window.location.replace('?group=3' + window.location.hash);
+    }
+  });
 
   const days = $(".app-header__days-wrapper .day");
   days[dayIndex > 0 ? dayIndex - 1 : 0].classList.add("today");
@@ -200,10 +214,10 @@ $(document).ready(function () {
     return;
   }
   $.ajax({
-    url: "/api/subject?groupId=1",
+    url: `/api/subject?groupId=${groupId}`,
     method: "GET"
   }).done(function (schedule) {
-    sessionStorage.setItem("schedule", JSON.stringify(schedule));
+    sessionStorage.setItem(`schedule-${groupId}`, JSON.stringify(schedule));
     updateWeekType();
   });
 });
