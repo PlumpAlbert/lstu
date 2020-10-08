@@ -36,7 +36,7 @@ function displaySchedule() {
   const weekType = sessionStorage.getItem("weekType");
   const weekDay = window.location.hash.slice(1).toLowerCase();
   let dayIndex = dayNameToDayIndex(weekDay);
-  if (!schedule || !schedule[dayIndex]) {
+  if (!schedule || !schedule[dayIndex].filter(s => s.weekType === weekType).length) {
     wrapper.append(emptyBody);
     return;
   }
