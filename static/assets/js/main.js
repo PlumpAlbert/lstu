@@ -105,6 +105,9 @@ function displaySchedule() {
   });
 }
 
+/**
+ * Method for updating week title and background color
+ */
 function updateWeekType() {
   const weekType = sessionStorage.getItem("weekType");
   const weekTitle = $(".app-header__week-container .week-type");
