@@ -59,15 +59,23 @@ function getAllSubject(res) {
     .catch(errorHandler(res));
 }
 
-function getSubjectsByGroupId(groupId, res) {
+/**
+ * Function to select subjects that are visited by group with `groupId`
+ * @param {number} groupId
+ * Group identifier
+ * @param {import('express').Response} [res]
+ * @returns {Promise<Object.<string, Subject[]> | void>}
+ */
+function getSubjectsByGroupId(groupId, res = undefined) {
   const queryString = fs.readFileSync(__dirname + "/getSubjectsByGroupId.sql", {
     encoding: "utf8"
   });
   const params = [groupId];
-  query(queryString, params)
+  return query(queryString, params)
     .then(body => {
       const subjects = body.rows.map(row => new Subject(row));
       const week = wrapPerWeeks(subjects);
+      if (!res) return week;
       res.status(200).json(week);
     })
     .catch(errorHandler(res));
@@ -80,4 +88,9 @@ subjectRouter.get("/", function (req, res) {
   //else getAllSubject(res);
 });
 
-module.exports = subjectRouter;
+module.exports = {
+  subjectRouter,
+  getAllSubject,
+  getSubjectsByGroupId,
+  getSubjectById
+};
