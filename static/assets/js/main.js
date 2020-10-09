@@ -24,8 +24,12 @@ const subjectTemplate = `<div class="subject flex-row">
         </div>
       </div>`;
 const emptyBody = `<p class='empty-message'>
-  <img src='/assets/face.svg' alt="hueta" class='empty-message__icon'/>
+  <img src='/assets/images/face.svg' alt="hueta" class='empty-message__icon'/>
   <span class='empty-message__text'>Сегодня нет пар</span>
+</p>`;
+const noSchedule = `<p class='empty-message'>
+  <img src='/assets/images/sad-emoji.png' class='empty-message__icon' />
+  <span class='empty-message__text'>Не удалось загрузить расписание</span>
 </p>`;
 
 function displaySchedule() {
@@ -33,10 +37,19 @@ function displaySchedule() {
   wrapper.empty();
   const groupId = queryParams.get('group') ? queryParams.get('group') : '1';
   const schedule = JSON.parse(sessionStorage.getItem(`schedule-${groupId}`));
-  const weekType = sessionStorage.getItem("weekType");
   const weekDay = window.location.hash.slice(1).toLowerCase();
-  let dayIndex = dayNameToDayIndex(weekDay);
-  if (!schedule || !schedule[dayIndex].filter(s => s.weekType === weekType).length) {
+  const dayIndex = dayNameToDayIndex(weekDay);
+  if (!schedule) {
+    wrapper.append(noSchedule);
+    return;
+  }
+  const weekType = sessionStorage.getItem("weekType");
+  if (!schedule[dayIndex]) {
+    wrapper.append(emptyBody);
+    return;
+  }
+  const currentDaySchedule = schedule[dayIndex].filter(s => s.weekType === weekType); 
+  if (!currentDaySchedule.length) {
     wrapper.append(emptyBody);
     return;
   }
