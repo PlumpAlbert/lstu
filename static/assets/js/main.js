@@ -198,7 +198,9 @@ $(document).ready(function () {
   groupName.click(function(e) {
     const {innerHTML} = e.target;
     if (innerHTML === 'ПИ-17') {
-      window.location.replace('?group=3' + window.location.hash);
+      window.location.assign('?group=3' + window.location.hash);
+    } else {
+      window.location.assign('?group=1' + window.location.hash);
     }
   });
 
