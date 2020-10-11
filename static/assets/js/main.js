@@ -162,9 +162,6 @@ function dayNameToDayIndex(name) {
  */
 function dayIndexToDayName(dayIndex) {
   switch (dayIndex) {
-    case 1: {
-      return "monday";
-    }
     case 2: {
       return "tuesday";
     }
@@ -181,7 +178,7 @@ function dayIndexToDayName(dayIndex) {
       return "saturday";
     }
     default:
-      return 0;
+      return "monday";
   }
 }
 
