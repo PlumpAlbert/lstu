@@ -189,6 +189,8 @@ $(document).ready(function () {
   const groupId = queryParams.get("group") ? queryParams.get("group") : "1";
   let dayIndex = dayNameToDayIndex(locationHash);
   if (dayIndex === 0) {
+    let weekType = sessionStorage.getItem("weekType");
+    sessionStorage.setItem("weekType", weekType === '1' ? "0" : "1");
     dayIndex = today.getDay();
     window.location.replace("#" + dayIndexToDayName(dayIndex));
   }
