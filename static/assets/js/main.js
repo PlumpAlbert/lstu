@@ -35,7 +35,7 @@ const noSchedule = `<p class='empty-message'>
 function displaySchedule() {
   const wrapper = $("#subjects-wrapper");
   wrapper.empty();
-  const groupId = queryParams.get('group') ? queryParams.get('group') : '1';
+  const groupId = queryParams.get("group") ? queryParams.get("group") : "1";
   const schedule = JSON.parse(sessionStorage.getItem(`schedule-${groupId}`));
   const weekDay = window.location.hash.slice(1).toLowerCase();
   const dayIndex = dayNameToDayIndex(weekDay);
@@ -48,7 +48,9 @@ function displaySchedule() {
     wrapper.append(emptyBody);
     return;
   }
-  const currentDaySchedule = schedule[dayIndex].filter(s => s.weekType === weekType); 
+  const currentDaySchedule = schedule[dayIndex].filter(
+    s => s.weekType === weekType
+  );
   if (!currentDaySchedule.length) {
     wrapper.append(emptyBody);
     return;
@@ -184,23 +186,22 @@ function dayIndexToDayName(dayIndex) {
 
 $(document).ready(function () {
   const locationHash = window.location.hash.slice(1).toLowerCase();
-  const groupId = queryParams.get('group') ?  queryParams.get('group') : '1';
+  const groupId = queryParams.get("group") ? queryParams.get("group") : "1";
   let dayIndex = dayNameToDayIndex(locationHash);
   if (dayIndex === 0) {
     dayIndex = today.getDay();
     window.location.replace("#" + dayIndexToDayName(dayIndex));
   }
 
-  const groupName = $('.app-header__menu-container .app-header__group-name');
+  const groupName = $(".app-header__menu-container .app-header__group-name");
 
-  if (groupId !== '1')
-    groupName.html('М-АС-20');
-  groupName.click(function(e) {
+  if (groupId !== "1") groupName.html("М-АС-20");
+  groupName.click(function (e) {
     const {innerHTML} = e.target;
-    if (innerHTML === 'ПИ-17') {
-      window.location.assign('?group=3' + window.location.hash);
+    if (innerHTML === "ПИ-17") {
+      window.location.assign("?group=3" + window.location.hash);
     } else {
-      window.location.assign('?group=1' + window.location.hash);
+      window.location.assign("?group=1" + window.location.hash);
     }
   });
 
