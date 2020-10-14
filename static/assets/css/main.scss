@@ -218,3 +218,17 @@ body.green {
     }
   }
 }
+
+@media (max-width: 420px) {
+  html,
+  body {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 240px) {
+  html,
+  body {
+    font-size: 12px;
+  }
+}
