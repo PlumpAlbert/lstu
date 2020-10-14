@@ -71,9 +71,6 @@ function dayNameToDayIndex(name) {
  */
 function dayIndexToDayName(dayIndex) {
   switch (dayIndex) {
-    case 1: {
-      return "monday";
-    }
     case 2: {
       return "tuesday";
     }
@@ -90,7 +87,7 @@ function dayIndexToDayName(dayIndex) {
       return "saturday";
     }
     default:
-      return 0;
+      return "monday";
   }
 }
 
@@ -99,6 +96,8 @@ $(document).ready(function () {
   const groupId = queryParams.get("group") ? queryParams.get("group") : "1";
   let dayIndex = dayNameToDayIndex(locationHash);
   if (dayIndex === 0) {
+    let weekType = sessionStorage.getItem("weekType");
+    sessionStorage.setItem("weekType", weekType === '1' ? "0" : "1");
     dayIndex = today.getDay();
     window.location.replace("#" + dayIndexToDayName(dayIndex));
   }
